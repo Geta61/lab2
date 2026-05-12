@@ -1,0 +1,28 @@
+@startuml
+
+interface RequestSource {
+    +exists(studentId, topic)
+    +save(request)
+}
+
+class DatabaseRequestSource
+class FileRequestSource
+class WebServiceRequestSource
+
+class RequestSourceFactory {
+    +create()
+}
+
+class RequestService {
+    -requestSource
+    +process()
+}
+
+RequestSource <|.. DatabaseRequestSource
+RequestSource <|.. FileRequestSource
+RequestSource <|.. WebServiceRequestSource
+
+RequestService --> RequestSource
+RequestSourceFactory --> RequestSource
+
+@enduml
